@@ -69,6 +69,21 @@ public class GeneralStore extends Main{
         Thread.sleep(2000);
     }
 
+    @Test
+    public void shopping_multi2() throws InterruptedException{
+        create_account();
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Converse All Star\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        driver.findElement(By.id("com.androidsample.generalstore:id/btnProceed")).click();
+
+        Thread.sleep(2000);
+    }
+
     //null cart error msg
     @Test
     public void cart_error_msg(){
