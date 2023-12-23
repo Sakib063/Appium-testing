@@ -34,6 +34,7 @@ public class GeneralStore extends Main{
     @Test
     public void shopping() throws InterruptedException{
         create_account();
+
         driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
         driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
@@ -72,6 +73,7 @@ public class GeneralStore extends Main{
     @Test
     public void shopping_multi2() throws InterruptedException{
         create_account();
+
         driver.findElement(AppiumBy.androidUIAutomator(
                 "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
         driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
@@ -88,6 +90,39 @@ public class GeneralStore extends Main{
     @Test
     public void cart_error_msg(){
         create_account();
+
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        String msg=driver.findElement(By.xpath("(//android.widget.Toast)[1]")).getAttribute("name");
+        Assert.assertEquals(msg,"Please add some product at first");
+    }
+
+    @Test
+    public void price_check(){
+        create_account();
+
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"PG 3\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        String total=driver.findElement(By.id("com.androidsample.generalstore:id/totalAmountLbl")).getText();
+        Assert.assertEquals(total,"$ "+295.0);
+    }
+
+    @Test
+    public void remove_cart(){
+        create_account();
+
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
+        driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_back")).click();
+        driver.findElement(AppiumBy.androidUIAutomator(
+                "new UiScrollable(new UiSelector()).scrollIntoView(text(\"Jordan 6 Rings\"))"));
+        driver.findElement(By.id("com.androidsample.generalstore:id/productAddCart")).click();
         driver.findElement(By.id("com.androidsample.generalstore:id/appbar_btn_cart")).click();
         String msg=driver.findElement(By.xpath("(//android.widget.Toast)[1]")).getAttribute("name");
         Assert.assertEquals(msg,"Please add some product at first");
